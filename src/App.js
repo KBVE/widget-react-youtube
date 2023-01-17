@@ -1,11 +1,34 @@
-import './App.css';
 
-function App() {
+import React from "react";
+
+function App({kbve_dom_element}) {
+  const _yt = kbve_dom_element.getAttribute("yt-id");
+  const _ytJSON = kbve_dom_element.getAttribute("yt-json");
+
+  const [youtubeId, setYoutubeId] = React.useState();
+  const [loading, setLoading] = React.useState();
+  const [error, setError] = React.useState("");
+
+  React.useEffect(() => {
+    setLoading(true);
+    fetch(`https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=${_yt}&format=json`)
+      .then((response) => response.json())
+      .then((data) => {
+        setLoading(false);
+        setData(data.slice(0, _limit));
+      })
+      .catch((e) => {
+        console.log(e);
+        setLoading(false);
+        setError("error fetching from KBVE");
+      });
+  }, [_yt, _ytJSON]);
+
   return (
     <div className="App">
       <header className="App-header">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {youtubeId}
         </p>
         <a
           className="App-link"
