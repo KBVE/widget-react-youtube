@@ -15,12 +15,13 @@ function App({kbve_dom_element}) {
       .then((response) => response.json())
       .then((data) => {
         setLoading(false);
-        setData(data.slice(0, _limit));
+        //setYoutubeId(data.slice(0, _limit));
+        setYoutubeId(data);
       })
       .catch((e) => {
         console.log(e);
         setLoading(false);
-        setError("error fetching from KBVE");
+        setError("error fetching from YT");
       });
   }, [_yt, _ytJSON]);
 
